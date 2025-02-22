@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Overpass");
+
+@font-face {
+	font-family: "Handjet";
+	src: url("/src/style/fonts/Limelight-Regular.ttf") format("truetype");
+}
+
+$font-stack: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+$primary-color: #cf1616;
+$secondary-color: #000000;
+$background-color: #ffdfb0;
+$font-main: "Handjet", sans-serif;

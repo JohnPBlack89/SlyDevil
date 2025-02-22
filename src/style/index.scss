@@ -1,0 +1,89 @@
+@use "App";
+@use "./components/nav.scss";
+@use "./components/title.scss";
+@use "./utilities/variables.scss";
+
+:root {
+	font-family: variables.$font-main;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color-scheme: light dark;
+	color: variables.$background-color;
+	background-color: variables.$background-color;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+canvas {
+	background-color: variables.$background-color;
+}
+
+a {
+	font-weight: 500;
+	color: variables.$secondary-color;
+	text-decoration: inherit;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	place-items: center;
+	min-width: 320px;
+	min-height: 100vh;
+}
+
+h1 {
+	font-size: 3.2em;
+	color: variables.$primary-color;
+}
+
+h2 {
+	color: variables.$secondary-color;
+}
+
+p {
+	color: variables.$secondary-color;
+}
+
+nav {
+	color: variables.$primary-color;
+}
+
+li {
+	color: variables.$primary-color;
+}
+
+button {
+	border: none;
+	padding: 0.6em 1.2em;
+	font-size: 1em;
+	font-weight: 500;
+	font-family: inherit;
+	background-color: transparent;
+	cursor: pointer;
+	transition: border-color 0.25s;
+}
+button:hover {
+	border-color: variables.$primary-color;
+}
+button:focus,
+button:focus-visible {
+	outline: 4px auto variables.$secondary-color;
+}
+
+// @media (prefers-color-scheme: light) {
+// 	:root {
+// 		color: #213547;
+// 		background-color: #ffffff;
+// 	}
+// 	a:hover {
+// 		color: #747bff;
+// 	}
+// 	button {
+// 		background-color: #f9f9f9;
+// 	}
+// }

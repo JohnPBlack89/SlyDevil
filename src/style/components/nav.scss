@@ -1,0 +1,58 @@
+@use "../utilities/variables.scss";
+$navbar-height: 4em;
+.nav {
+	// top: 10px;
+	// left: 10px;
+	display: block;
+	place-content: center;
+}
+
+.navbar {
+	border: 2px solid variables.$primary-color;
+	height: $navbar-height;
+	width: fit-content;
+	position: relative;
+	padding: 0;
+	border-radius: 9999px;
+	will-change: filter;
+	display: inline-block;
+	list-style-type: none;
+}
+
+.navbar-item {
+	color: variables.$primary-color;
+	margin: 0;
+	padding: 1.5em;
+	line-height: normal;
+	display: inline-block;
+	box-sizing: border-box;
+	mix-blend-mode: difference;
+	position: relative;
+	z-index: 10;
+}
+
+.navbar-item:hover {
+	cursor: pointer;
+}
+
+.navbar-cursor {
+	position: absolute;
+	border-radius: 9999px;
+	z-index: 0;
+	background-color: variables.$primary-color;
+	box-sizing: border-box;
+	height: $navbar-height;
+	bottom: 0;
+}
+
+@media screen and (max-width: 480px) {
+	.navbar {
+		height: auto;
+	}
+	.navbar-item {
+		padding: 1em;
+	}
+	.navbar-cursor {
+		height: 0;
+	}
+}
