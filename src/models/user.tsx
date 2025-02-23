@@ -31,4 +31,6 @@ export default async function userrun() {
 	await user.save();
 
 	console.log(user.email);
+
+	return;
 }
