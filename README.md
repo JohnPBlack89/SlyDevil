@@ -51,6 +51,6 @@ export default tseslint.config({
 
 To-Do:
 Connection to Mongo
-Sass
+Heroku
 Authentication
 Wiseguys Game
