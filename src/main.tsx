@@ -1,8 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./style/index.scss";
+import "./app/style/index.scss";
 import App from "./app/App.tsx";
-import React from "@vitejs/plugin-react";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
