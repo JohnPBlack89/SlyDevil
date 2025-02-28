@@ -1,9 +1,8 @@
 Remember your chrome tab groups
 
 To-Do:
-Express JS
-Middleware Mode
 Connection to Mongo
+Middleware Mode
 Heroku
 Authentication
 Wiseguys Game
