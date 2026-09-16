@@ -1,0 +1,10 @@
+*
+!Dockerfile
+!package.json
+!server.js
+!index.html
+!src/
+!src/app.js
+!src/style.css
+!src/engine.js
+!src/engine.test.js
