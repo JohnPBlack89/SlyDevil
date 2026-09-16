@@ -17,9 +17,18 @@ const escape = (s) =>
 	);
 const button = (text, action, cls = "primary") =>
 	`<button class="${cls}" data-action="${action}">${text}</button>`;
+let viewMounted = false;
+function finishView() {
+  const heading = app.querySelector('.stage h2') || app.querySelector('h1');
+  if (heading) {
+    heading.tabIndex = -1;
+    if (viewMounted) heading.focus();
+  }
+  viewMounted = true;
+}
 function setup() {
 	phase = "setup";
-	app.innerHTML = `<section class="hero"><div><span class="eyebrow">THE NIGHT HAS SECRETS.</span><h1>A familiar face.<br>A <em>hidden devil.</em></h1><p>Somewhere around your table, evil is hiding in plain sight. Read the room, follow your instincts, and decide who makes it to dawn.</p><div class="tags"><span>Secret identities</span><span>Real conversations</span><span>System-led story</span></div></div><div class="moon-scene" aria-hidden="true"><div class="orbit"></div><div class="moon"></div><span class="star s1">✦</span><span class="star s2">✧</span><span class="scene-label">WHEN DARKNESS FALLS, THE GAME BEGINS</span></div></section><div class="columns"><section class="panel"><div class="panel-top"><h2>Gather your table</h2><span class="number">01 / SETUP</span></div><p class="subtle">One device. A room full of suspects. The system takes care of the rest.</p><label class="label" for="names">Who's playing?</label><textarea id="names" placeholder="Alex&#10;Jordan&#10;Sam&#10;Morgan&#10;Riley&#10;Casey" maxlength="600"></textarea><p class="hint">Enter one name per line. 5–12 players, with unique names.</p><div id="error" class="error" role="alert"></div>${button("Create a game <span>↗</span>", "start", "primary wide")}<div class="bottom-note"><span>◈</span><span>Roles are revealed privately. Pass the device when prompted.<br>Closing or refreshing this page ends the game.</span></div></section><aside class="panel"><div class="panel-top"><h2>Every face has a role</h2><span class="number">THE CAST</span></div>${[
+	app.innerHTML = `<section class="hero"><div><span class="eyebrow">THE NIGHT HAS SECRETS.</span><h1>A familiar face.<br>A <em>hidden devil.</em></h1><p>Somewhere around your table, evil is hiding in plain sight. Read the room, follow your instincts, and decide who makes it to dawn.</p><div class="tags"><span>Secret identities</span><span>Real conversations</span><span>System-led story</span></div></div><div class="moon-scene" aria-hidden="true"><div class="orbit"></div><div class="moon"></div><span class="star s1">✦</span><span class="star s2">✧</span><span class="scene-label">WHEN DARKNESS FALLS, THE GAME BEGINS</span></div></section><div class="columns"><section class="panel"><div class="panel-top"><h2>Gather your table</h2><span class="number">01 / SETUP</span></div><p class="subtle">One device. A room full of suspects. The system takes care of the rest.</p><label class="label" for="names">Who's playing?</label><textarea id="names" placeholder="Alex&#10;Jordan&#10;Sam&#10;Morgan&#10;Riley&#10;Casey" maxlength="600" aria-describedby="names-hint error"></textarea><p id="names-hint" class="hint">Enter one name per line. 5–12 players, with unique names.</p><div id="error" class="error" role="alert"></div>${button("Create a game <span>↗</span>", "start", "primary wide")}<div class="bottom-note"><span>◈</span><span>Roles are revealed privately. Pass the device when prompted.<br>Closing or refreshing this page ends the game.<br>Using a screen reader? Use headphones for private turns.</span></div></section><aside class="panel"><div class="panel-top"><h2>Every face has a role</h2><span class="number">THE CAST</span></div>${[
 		["Devil", "☾", "EVIL"],
 		["Oracle", "✧", "TOWN"],
 		["Warden", "◇", "TOWN"],
@@ -27,12 +36,14 @@ function setup() {
 	]
 		.map(
 			([name, icon, team]) =>
-				`<div class="role ${team === "EVIL" ? "evil" : ""}"><div class="role-icon">${icon}</div><div><b>${name}</b><small>${team}</small><p>${name === "Devil" ? "Hide in the crowd. Choose a victim each night." : name === "Oracle" ? "See beyond appearances. Investigate a player." : name === "Warden" ? "Stand between the town and the darkness." : "You have your voice. Make it count."}</p></div></div>`,
+				`<div class="role ${team === "EVIL" ? "evil" : ""}"><div class="role-icon" aria-hidden="true">${icon}</div><div><b>${name}</b><small>${team}</small><p>${name === "Devil" ? "Hide in the crowd. Choose a victim each night." : name === "Oracle" ? "See beyond appearances. Investigate a player." : name === "Warden" ? "Stand between the town and the darkness." : "You have your voice. Make it count."}</p></div></div>`,
 		)
 		.join("")}</aside></div>`;
+	finishView();
 }
 function shell(content) {
-	app.innerHTML = `<div class="game-heading"><div><span class="eyebrow">${phase === "reveal" ? "THE INTRODUCTION" : phase === "night" ? "AFTER DARK" : "THE TOWN GATHERS"}</span><h1>${phase === "reveal" ? "Meet your secret self" : phase === "night" ? `Night ${game.round}` : phase === "end" ? "The truth comes out" : `Day ${game.round}`}</h1></div>${button("End game", "reset", "secondary")}</div><div class="game-grid"><section class="panel stage" aria-live="polite">${content}</section><aside><section class="panel"><div class="panel-top"><h3>Your table</h3><span class="number">${game.players.filter((p) => p.alive).length} ALIVE</span></div>${game.players.map((p) => `<div class="player ${p.alive ? "" : "dead"}"><span>${escape(p.name)}</span><span class="pill">${phase === "end" ? p.role : p.alive ? "In the game" : "Dead"}</span></div>`).join("")}</section><section class="panel" style="margin-top:20px"><h3>The story so far</h3>${game.log.length ? game.log.map((l) => `<div class="log">${escape(l)}</div>`).join("") : '<p class="subtle">The town is quiet. For now.</p>'}</section></aside></div>`;
+	app.innerHTML = `<div class="game-heading"><div><span class="eyebrow">${phase === "reveal" ? "THE INTRODUCTION" : phase === "night" ? "AFTER DARK" : "THE TOWN GATHERS"}</span><h1>${phase === "reveal" ? "Meet your secret self" : phase === "night" ? `Night ${game.round}` : phase === "end" ? "The truth comes out" : `Day ${game.round}`}</h1></div>${button("End game", "reset", "secondary")}</div><div class="game-grid"><section class="panel stage">${content}</section><aside><section class="panel"><div class="panel-top"><h2>Your table</h2><span class="number">${game.players.filter((p) => p.alive).length} ALIVE</span></div>${game.players.map((p) => `<div class="player ${p.alive ? "" : "dead"}"><span>${escape(p.name)}</span><span class="pill">${phase === "end" ? p.role : p.alive ? "In the game" : "Dead"}</span></div>`).join("")}</section><section class="panel" style="margin-top:20px"><h2>The story so far</h2>${game.log.length ? game.log.map((l) => `<div class="log">${escape(l)}</div>`).join("") : '<p class="subtle">The town is quiet. For now.</p>'}</section></aside></div>`;
+	finishView();
 }
 function targets(players, skip = false) {
 	return `<div class="targets">${players.map((p) => `<button class="target" data-target="${p.id}">${escape(p.name)} <span style="float:right">↗</span></button>`).join("")}${skip ? '<button class="target" data-target="skip">Abstain</button>' : ""}</div>`;
@@ -41,7 +52,7 @@ function render() {
 	if (game.winner) {
 		phase = "end";
 		shell(
-			`<span class="eyebrow">GAME OVER</span><div class="winner">${game.winner === "town" ? "Town wins." : "Devils win."}</div><p>${game.winner === "town" ? "Every devil has been found. The town can sleep again." : "The devils have taken control of the town."}</p><p>All identities are now revealed at the table.</p>${button("Play again", "again")}`,
+			`<span class="eyebrow">GAME OVER</span><h2 class="winner">${game.winner === "town" ? "Town wins." : "Devils win."}</h2><p>${game.winner === "town" ? "Every devil has been found. The town can sleep again." : "The devils have taken control of the town."}</p><p>All identities are now revealed at the table.</p>${button("Play again", "again")}`,
 		);
 		return;
 	}
@@ -163,7 +174,10 @@ app.addEventListener("click", (e) => {
 			revealed = false;
 			render();
 		} catch (err) {
-			document.querySelector("#error").textContent = err.message;
+			const namesField = document.querySelector('#names');
+            namesField.setAttribute('aria-invalid', 'true');
+            document.querySelector('#error').textContent = err.message;
+            namesField.focus();
 		}
 		return;
 	}
@@ -217,3 +231,10 @@ app.addEventListener("click", (e) => {
 	}
 });
 setup();
+
+app.addEventListener('input', (event) => {
+  if (event.target.id === 'names') {
+    event.target.removeAttribute('aria-invalid');
+    document.querySelector('#error').textContent = '';
+  }
+});

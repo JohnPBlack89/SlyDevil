@@ -8,6 +8,7 @@
 	--text: #faf3f3;
 	--accent: #ff5364;
 	--accent-hover: #ff7582;
+	--control-border: #94656d;
 }
 * {
 	box-sizing: border-box;
@@ -25,6 +26,24 @@ textarea {
 }
 button {
 	cursor: pointer;
+	min-height: 44px;
+}
+.skip-link {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	z-index: 10;
+	transform: translateY(-200%);
+	background: var(--text);
+	color: var(--bg);
+	padding: 12px 18px;
+}
+.skip-link:focus {
+	transform: translateY(0);
+}
+main:focus, h1:focus, h2:focus {
+	outline: 2px solid var(--accent);
+	outline-offset: 6px;
 }
 button:focus-visible,
 a:focus-visible {
@@ -36,7 +55,9 @@ a:focus-visible {
 	color: #ffffff;
 }
 header {
-	height: 90px;
+	min-height: 90px;
+	padding: 16px 0;
+	flex-wrap: wrap;
 	margin: 0 5%;
 	display: flex;
 	align-items: center;
@@ -130,6 +151,7 @@ p {
 }
 .tags {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 18px;
 	margin-top: 26px;
 	color: #c4b4b6;
@@ -215,6 +237,8 @@ p {
 }
 .panel-top {
 	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 22px;
@@ -235,7 +259,7 @@ p {
 textarea,
 input {
 	background: #0d0b0c;
-	border: 1px solid #493034;
+	border: 1px solid var(--control-border);
 	border-radius: 8px;
 	padding: 12px;
 	color: var(--text);
@@ -245,6 +269,12 @@ input {
 textarea:focus,
 input:focus {
 	border-color: var(--accent);
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+textarea::placeholder, input::placeholder {
+	color: var(--muted);
+	opacity: 1;
 }
 textarea {
 	resize: vertical;
@@ -281,6 +311,7 @@ textarea {
 .target {
 	background: transparent;
 	color: var(--text);
+	border-color: var(--control-border);
 }
 .secondary:hover,
 .target:hover {
@@ -381,7 +412,10 @@ textarea {
 	font-size: 13px;
 }
 .dead {
-	opacity: 0.4;
+	color: var(--muted);
+}
+.dead .pill {
+	color: var(--muted);
 }
 .pill {
 	font-size: 10px;
@@ -413,7 +447,7 @@ footer {
 	color: var(--muted);
 }
 .winner {
-	font-size: 64px;
+	font-size: clamp(36px, 8vw, 64px);
 	color: var(--accent);
 	margin: 24px 0;
 }
@@ -421,9 +455,22 @@ footer {
 	color: var(--muted);
 	font-size: 12px;
 }
+.panel, .hero > *, .game-heading > *, .role > div {
+	min-width: 0;
+}
+h1, h2, p, button, .player, .log, .brand {
+	overflow-wrap: anywhere;
+}
+.player {
+	gap: 12px;
+}
+.game-grid aside h2 {
+	font-size: 16px;
+	letter-spacing: normal;
+}
 @media (max-width: 750px) {
 	header {
-		height: 75px;
+		min-height: 75px;
 		gap: 10px;
 	}
 	.header-note {
@@ -458,6 +505,7 @@ footer {
 		font-size: 10px;
 	}
 	footer {
+		flex-wrap: wrap;
 		gap: 16px;
 		line-height: 1.7;
 	}
@@ -466,8 +514,14 @@ footer {
 	}
 	.game-heading {
 		gap: 10px;
+		flex-wrap: wrap;
 	}
 	h1 {
 		letter-spacing: -2px;
+	}
+}
+@media (max-width: 400px) {
+	.targets {
+		grid-template-columns: 1fr;
 	}
 }
