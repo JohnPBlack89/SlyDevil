@@ -1,32 +1,48 @@
 import { roles, createGame, resolveNight, resolveVote } from "./engine.js";
-const app = document.querySelector("#app");
+import type { GameState, Player, Role, Vote } from "./engine.js";
+
+// Fail clearly when the current screen is missing a required HTML element.
+function requireElement<T extends HTMLElement>(selector: string): T {
+  const element = document.querySelector<T>(selector);
+  if (!element) throw new Error(`Missing page element: ${selector}`);
+  return element;
+}
+const app = requireElement<HTMLElement>("#app");
+type Phase = "setup" | "reveal" | "night" | "day" | "vote" | "verdict" | "end";
 
 // The UI follows setup → reveal → night → day → vote → verdict, until a winner.
-let game;
-let phase = "setup";
-let queue = []; // Players waiting for a private turn in the current phase.
+// Game screens are only entered after createGame succeeds in the setup form.
+let game: GameState;
+let phase: Phase = "setup";
+let queue: Player[] = []; // Players waiting for a private turn in the current phase.
 let cursor = 0; // Index of the player whose turn is being shown.
 let revealed = false; // Hide private content until the player confirms their name.
 let result = ""; // Public reports or the oracle's private investigation result.
-let votes = []; // Player IDs selected on ballots; null means abstention.
+let votes: Vote[] = []; // Player IDs selected on ballots; null means abstention.
+
+function currentActor(): Player {
+  const actor = queue[cursor];
+  if (!actor) throw new Error('There is no player waiting for a private turn.');
+  return actor;
+}
 
 // Escape player names and reports before inserting them into HTML.
-const escape = (text) =>
+const escape = (text: string) =>
   String(text).replace(
     /[&<>"']/g,
     (character) =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" } as Record<string, string>)[
         character
-      ],
+      ] ?? character,
   );
-const button = (text, action, className = "primary") =>
+const button = (text: string, action: string, className = "primary") =>
   `<button class="${className}" data-action="${action}">${text}</button>`;
 
 let viewMounted = false;
 
 // Move focus to the new heading after navigation so screen readers follow the view.
 function finishView() {
-  const heading = app.querySelector('.stage h2') || app.querySelector('h1');
+  const heading = app.querySelector<HTMLElement>('.stage h2') || app.querySelector<HTMLElement>('h1');
   if (heading) {
     heading.tabIndex = -1;
     if (viewMounted) heading.focus();
@@ -37,7 +53,7 @@ function finishView() {
 // Render the player-name form and the role overview.
 function setup() {
   phase = "setup";
-  const roleSummaries = {
+  const roleSummaries: Record<Role, string> = {
     Devil: "Hide in the crowd. Choose a victim each night.",
     Oracle: "See beyond appearances. Investigate a player.",
     Warden: "Stand between the town and the darkness.",
@@ -74,12 +90,12 @@ function setup() {
     `<aside class="panel">` +
     `<div class="panel-top">` +
     `<h2>Every face has a role</h2>` +
-    `<span class="number">THE CAST</span></div>${[
+    `<span class="number">THE CAST</span></div>${([
     ["Devil", "☾", "EVIL"],
     ["Oracle", "✧", "TOWN"],
     ["Warden", "◇", "TOWN"],
     ["Villager", "♙", "TOWN"],
-  ]
+  ] as const)
     .map(
       ([name, icon, team]) =>
         `<div class="role ${team === "EVIL" ? "evil" : ""}">` +
@@ -94,7 +110,7 @@ function setup() {
 }
 
 // Wrap each game screen with the shared heading, player list, and story log.
-function shell(content) {
+function shell(content: string) {
   let eyebrow = "THE TOWN GATHERS";
   let heading = `Day ${game.round}`;
   if (phase === "reveal") {
@@ -144,7 +160,7 @@ function shell(content) {
 }
 
 // Build target choices, optionally including an abstention button for ballots.
-function targets(players, allowAbstention = false) {
+function targets(players: Player[], allowAbstention = false) {
   const choices = players.map((player) =>
     `<button class="target" data-target="${player.id}">` +
     `${escape(player.name)} <span style="float:right">↗</span></button>`
@@ -185,7 +201,7 @@ function render() {
     );
     return;
   }
-  const actor = queue[cursor];
+  const actor = currentActor();
   // Each private turn starts with a handoff, before showing identities or actions.
   if (!revealed) {
     shell(
@@ -294,13 +310,14 @@ function advance() {
 
 // One delegated listener handles buttons even after the view HTML is replaced.
 app.addEventListener("click", (event) => {
+  // Event targets may be non-element objects; narrow before calling closest.
+  if (!(event.target instanceof Element)) return;
   const clickedButton = event.target.closest("button");
   if (!clickedButton) return;
   const action = clickedButton.dataset.action;
   if (action === "start") {
     try {
-      const names = document
-        .querySelector("#names")
+      const names = requireElement<HTMLTextAreaElement>("#names")
         .value.split("\n")
         .map((name) => name.trim())
         .filter(Boolean);
@@ -314,9 +331,10 @@ app.addEventListener("click", (event) => {
       revealed = false;
       render();
     } catch (error) {
-      const namesField = document.querySelector('#names');
+      const namesField = requireElement<HTMLTextAreaElement>('#names');
       namesField.setAttribute('aria-invalid', 'true');
-      document.querySelector('#error').textContent = error.message;
+      requireElement<HTMLElement>('#error').textContent = error instanceof Error
+        ? error.message : 'Unable to create the game.';
       namesField.focus();
     }
     return;
@@ -358,10 +376,13 @@ app.addEventListener("click", (event) => {
       votes.push(id);
       advance();
     } else {
-      const actor = queue[cursor];
+      const actor = currentActor();
+      // Abstention belongs to ballots; night actions must name a living player.
+      const target = game.players.find((player) => player.id === id && player.alive);
+      if (!target) return;
       // Investigation is shown privately; attacks and protection resolve at dawn.
       if (actor.role === "Oracle") {
-        result = `${game.players[id].name} ${game.players[id].role === "Devil" ? "is a devil." : "is not a devil."}`;
+        result = `${target.name} ${target.role === "Devil" ? "is a devil." : "is not a devil."}`;
         render();
       } else {
         if (actor.role === "Devil") game.attack = id;
@@ -375,8 +396,8 @@ setup();
 
 // Clear name-validation feedback as the user edits the form.
 app.addEventListener('input', (event) => {
-  if (event.target.id === 'names') {
+  if (event.target instanceof HTMLTextAreaElement && event.target.id === 'names') {
     event.target.removeAttribute('aria-invalid');
-    document.querySelector('#error').textContent = '';
+    requireElement<HTMLElement>('#error').textContent = '';
   }
 });

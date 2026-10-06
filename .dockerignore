@@ -1,10 +1,12 @@
 *
 !Dockerfile
 !package.json
-!server.js
+!package-lock.json
+!tsconfig.json
+!server.ts
 !index.html
 !src/
-!src/app.js
+!src/app.ts
 !src/style.css
-!src/engine.js
-!src/engine.test.js
+!src/engine.ts
+!src/engine.test.ts

@@ -12,8 +12,9 @@ the frontend lobby, backend room/session handling, and synchronized updates.
 
 ## 1. Organize the project
 
-- [ ] Push the existing Git repository to GitHub.
-- [ ] Set up TypeScript.
+- [x] Push the existing Git repository to GitHub.
+- [x] Set up TypeScript.
+- [ ] Finish Engine drawing
 - [ ] Define types for players, roles, rooms, and game phases.
 - [ ] Define a character type if characters become separate from game roles.
 - [ ] Separate shared types, game rules, frontend, and backend.

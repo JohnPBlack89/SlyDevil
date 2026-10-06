@@ -2,16 +2,17 @@ import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 
 // Only these URLs can be served. Both home-page URLs load the same HTML file.
-const files = {
-  '/': 'index.html',
-  '/index.html': 'index.html',
+const files: Record<string, string> = {
+  '/': '../index.html',
+  '/index.html': '../index.html',
   '/src/app.js': 'src/app.js',
   '/src/engine.js': 'src/engine.js',
-  '/src/style.css': 'src/style.css',
+  '/src/style.css': '../src/style.css',
 };
 
 // Tell the browser how to interpret each kind of file.
-const contentTypes = {
+// This script runs from dist/: JavaScript is compiled, HTML and CSS are not.
+const contentTypes: Record<string, string> = {
   html: 'text/html',
   js: 'text/javascript',
   css: 'text/css',
@@ -23,7 +24,7 @@ const host = process.env.HOST || '127.0.0.1';
 
 const server = http.createServer(async (request, response) => {
   // Extract the URL path, ignoring query parameters such as ?version=1.
-  const pathname = new URL(request.url, 'http://localhost').pathname;
+  const pathname = new URL(request.url ?? '/', 'http://localhost').pathname;
   const filePath = files[pathname];
 
   if (!filePath) {
@@ -36,8 +37,8 @@ const server = http.createServer(async (request, response) => {
     // Resolve the file relative to this script, regardless of where Node starts.
     const fileUrl = new URL(filePath, import.meta.url);
     const body = await readFile(fileUrl);
-    const extension = filePath.split('.').pop();
-    const contentType = contentTypes[extension];
+    const extension = filePath.split('.').pop() ?? '';
+    const contentType = contentTypes[extension] ?? 'application/octet-stream';
 
     response.writeHead(200, {
       'Content-Type': `${contentType}; charset=utf-8`,

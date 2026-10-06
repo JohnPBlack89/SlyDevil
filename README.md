@@ -4,7 +4,17 @@ An original, system-led social deduction game for 5–12 people in the same room
 
 ## Run
 
-With Node.js 18 or newer, run `npm start` and visit http://localhost:3000. No dependencies or installation needed. Run `npm test` for game-rule checks.
+With Node.js 18 or newer (Node.js 22 is used in Docker), install the development tools with `npm ci`, then run `npm start` and visit http://localhost:3000. The start command compiles TypeScript before launching the server. The running app has no third-party runtime dependencies.
+
+Run `npm test` to compile and run the game-rule checks, or `npm run typecheck` to check types without generating files.
+
+## TypeScript development
+
+Edit the `.ts` files in `src/` and `server.ts`. Shared game types live at the top of `src/engine.ts`; the browser's screen phases are defined in `src/app.ts`. Strict checking catches missing players, nullable choices, and unsafe DOM access.
+
+`npm run build` writes JavaScript and source maps to `dist/`. Keep `.js` extensions in source imports, because Node and the browser load the compiled JavaScript. HTML and CSS remain in their original locations; the server maps browser URLs to the appropriate files.
+
+For continuous compilation, run `npm run watch` in one terminal and `node dist/server.js` in another after the first build completes. Refresh the browser after editing client code; restart the server after editing `server.ts`. Generated files and `node_modules/` are ignored by Git. Commit `package-lock.json` so local and Docker builds use the same dependencies.
 
 ## Play
 

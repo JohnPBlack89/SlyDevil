@@ -22,7 +22,7 @@ docker run --rm -p 127.0.0.1:3000:3000 sly-devil:local
 
 Open http://localhost:3000. Stop the foreground container with Ctrl+C. If port 3000 is already in use, publish `127.0.0.1:3001:3000` and visit port 3001 instead.
 
-The build runs the game-rule tests before creating a runtime image. The app runs as the unprivileged `node` user and listens on all container interfaces. Render requires `linux/amd64` images.
+The build installs development dependencies with `npm ci`, compiles TypeScript, and runs the game-rule tests before creating a runtime image. The runtime image contains compiled JavaScript, HTML, and CSS, with no compiler or development dependencies. The app runs as the unprivileged `node` user and listens on all container interfaces. Render requires `linux/amd64` images.
 
 ## 3. Upload your first image
 
