@@ -1,4 +1,6 @@
+import { Condition } from "./conditions.js";
+
 export interface Goal {
 	name: string;
-	conditionMet: boolean;
+	conditions: Condition[];
 }
