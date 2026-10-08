@@ -1,5 +1,5 @@
-import { Goal } from "./goal.js";
-import { Ability } from "./ability.js";
+import { Goal } from "./goals.js";
+import { Ability } from "./abilities.js";
 import { Team } from "./team.js";
 
 export interface Role {

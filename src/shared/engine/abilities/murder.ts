@@ -1,4 +1,4 @@
-import { Ability } from "../../types/ability.js";
+import { Ability } from "../../types/abilities.js";
 
 export const murder = {
 	name: "Murder",
