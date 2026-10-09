@@ -2,29 +2,6 @@ import { Role } from "./shared/types/role.js";
 import { Team } from "./shared/types/team.js";
 import { Player } from "./shared/types/player.js";
 
-// Role descriptions are shared with the private identity screen.
-export const roles = {
-	Devil: {
-		team: "evil",
-		description:
-			"Agree on one living player to attack each night. Win when devils equal or outnumber the town.",
-	},
-	Oracle: {
-		team: "town",
-		description:
-			"Each night, learn whether one other living player is a devil.",
-	},
-	Warden: {
-		team: "town",
-		description:
-			"Protect one living player each night, including yourself. You cannot protect the same player on consecutive nights.",
-	},
-	Villager: {
-		team: "town",
-		description: "Listen, question, and vote. Find every devil to win.",
-	},
-} satisfies Record<Role, { team: Team; description: string }>;
-
 // Create shared game state. A supplied random function allows repeatable shuffles.
 export function createGame(names: string[], random = Math.random): GameState {
 	if (names.length < 5 || names.length > 12) {
