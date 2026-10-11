@@ -1,7 +1,3 @@
-# Sly Devil
-
-An original, system-led social deduction game for 5–12 people in the same room. No human narrator is required: the browser assigns roles, handles private night turns, resolves attacks and protection, collects secret ballots, and checks victory conditions.
-
 ## Run
 
 With Node.js 18 or newer (Node.js 22 is used in Docker), install the development tools with `npm ci`, then run `npm start` and visit http://localhost:3000. The start command compiles TypeScript before launching the server. The running app has no third-party runtime dependencies.

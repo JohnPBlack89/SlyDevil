@@ -1,9 +1,31 @@
 import { Role } from "./shared/types/role.js";
 import { Team } from "./shared/types/team.js";
-import { Player } from "./shared/types/player.js";
+import { Room } from "./shared/types/room.js";
+import { Game } from "./shared/types/game.js";
+import { v7 } from "uuid";
 
+function createRoom(game: Game): Room {
+	var room = {
+		id: generateGUID(),
+		game: game,
+		players: [],
+		state: [],
+	} satisfies Room;
+	return room;
+}
+
+function generateGUID() {
+	// Need to add verification?
+	return v7();
+}
+
+export function insertCoin(game: Game) {
+	createRoom(game);
+}
+
+/*
 // Create shared game state. A supplied random function allows repeatable shuffles.
-export function createGame(names: string[], random = Math.random): GameState {
+export function createGame(names: string[], random = Math.random) {
 	if (names.length < 5 || names.length > 12) {
 		throw new Error("Your table needs 5–12 players.");
 	}
@@ -114,3 +136,4 @@ export function resolveVote(game: GameState, votes: Vote[]): string {
 	game.winner = checkWinner(game);
 	return message;
 }
+*/

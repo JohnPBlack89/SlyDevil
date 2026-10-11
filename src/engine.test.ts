@@ -1,3 +1,13 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { insertCoin } from "./engine.js";
+
+test("testing tests", () => {
+	assert.equal(true, true);
+});
+
+test("win conditions", () => {});
+
 /*
 import test from "node:test";
 import assert from "node:assert/strict";

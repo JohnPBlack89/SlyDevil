@@ -7,4 +7,5 @@ export interface Room {
 	game: Game;
 	players: Player[];
 	state: State[];
+	addPlayers: (player: Player) => void;
 }
