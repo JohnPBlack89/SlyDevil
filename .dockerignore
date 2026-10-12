@@ -6,7 +6,4 @@
 !server.ts
 !index.html
 !src/
-!src/app.ts
-!src/style.css
-!src/engine.ts
-!src/engine.test.ts
+!src/**

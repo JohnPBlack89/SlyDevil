@@ -3,6 +3,7 @@ import { Team } from "./shared/types/team.js";
 import { Room } from "./shared/types/room.js";
 import { Game } from "./shared/types/game.js";
 import { v7 } from "uuid";
+import { Player } from "./shared/types/player.js";
 
 function createRoom(game: Game): Room {
 	var room = {
@@ -10,6 +11,9 @@ function createRoom(game: Game): Room {
 		game: game,
 		players: [],
 		state: [],
+		addPlayers(player: Player) {
+			this.players.push(player);
+		},
 	} satisfies Room;
 	return room;
 }

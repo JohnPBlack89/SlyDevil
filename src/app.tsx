@@ -1,7 +1,16 @@
-/*
-import { roles, createGame, resolveNight, resolveVote } from "./engine.js";
-import type { GameState, Player, Role, Vote } from "./engine.js";
+import React from "react";
+import Home from "./shared/views/home.js";
 
+function App() {
+	return (
+		<>
+			<Home />
+		</>
+	);
+}
+export default App;
+
+/*
 // Fail clearly when the current screen is missing a required HTML element.
 function requireElement<T extends HTMLElement>(selector: string): T {
 	const element = document.querySelector<T>(selector);
