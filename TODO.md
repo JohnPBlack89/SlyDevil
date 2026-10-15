@@ -14,11 +14,10 @@ the frontend lobby, backend room/session handling, and synchronized updates.
 
 - [x] Push the existing Git repository to GitHub.
 - [x] Set up TypeScript.
-- [ ] Finish Engine drawing
-- [ ] Define types for players, roles, rooms, and game phases.
-- [ ] Define a character type if characters become separate from game roles.
-- [ ] Separate shared types, game rules, frontend, and backend.
-- [ ] Keep the existing engine tests passing throughout the migration.
+- [x] Finish Engine drawing
+- [x] Define types for players, roles, rooms, and game phases.
+- [x] Separate shared types, game rules, frontend, and backend.
+- [x] Keep the existing engine tests passing throughout the migration.
 
 ## 2. Build the Expo frontend
 

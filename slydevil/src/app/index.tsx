@@ -7,8 +7,8 @@ import { HintRow } from "@/components/hint-row";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { WebBadge } from "@/components/web-badge";
-import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
-import { styles } from "@/styles/theme";
+import { BottomTabInset, MaxContentWidth, Spacing } from "@/styles/theme";
+import { ThemeColor } from "@/styles/theme";
 
 function getDevMenuHint() {
 	if (Platform.OS === "web") {
@@ -31,8 +31,8 @@ function getDevMenuHint() {
 
 export default function HomeScreen() {
 	return (
-		<View style={styles.screen}>
-			<Text style={styles.heading}>Sly Devil</Text>
+		<View style={ThemeColor.screen}>
+			<Text style={ThemeColor.heading}>Sly Devil</Text>
 		</View>
 		/*
     <ThemedView style={styles.container}>
