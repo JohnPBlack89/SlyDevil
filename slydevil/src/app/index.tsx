@@ -36,7 +36,7 @@ function getDevMenuHint() {
 
 export default function HomeScreen() {
 	return (
-		<ThemedView>
+		<ThemedView style={{ flex: 1, paddingTop: Spacing.six, paddingHorizontal: Spacing.four }}>
 			<ThemedText>Sly Devil</ThemedText>
 		</ThemedView>
 		/*

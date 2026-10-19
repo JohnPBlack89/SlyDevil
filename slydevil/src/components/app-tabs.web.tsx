@@ -14,11 +14,13 @@ import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
 
 import { Colors, MaxContentWidth, Spacing } from "@/styles/coloring";
+import { useTheme } from "@/hooks/use-theme";
 
 export default function AppTabs() {
+	const theme = useTheme();
 	return (
-		<Tabs>
-			<TabSlot style={{ height: "100%" }} />
+		<Tabs style={{ flex: 1, backgroundColor: theme.background }}>
+			<TabSlot style={{ flex: 1, backgroundColor: theme.background }} />
 			<TabList asChild>
 				<CustomTabList>
 					<TabTrigger name="home" href="/" asChild>
@@ -67,17 +69,6 @@ export function CustomTabList(props: TabListProps) {
 				</ThemedText>
 
 				{props.children}
-
-				<ExternalLink href="https://docs.expo.dev" asChild>
-					<Pressable style={styles.externalPressable}>
-						<ThemedText type="link">Docs</ThemedText>
-						<SymbolView
-							tintColor={colors.text}
-							name={{ ios: "arrow.up.right.square", web: "link" }}
-							size={12}
-						/>
-					</Pressable>
-				</ExternalLink>
 			</ThemedView>
 		</View>
 	);
