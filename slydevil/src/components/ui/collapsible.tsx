@@ -5,7 +5,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { Spacing } from "@/styles/theme";
+import { Spacing } from "@/styles/coloring";
 import { useTheme } from "@/hooks/use-theme";
 
 export function Collapsible({

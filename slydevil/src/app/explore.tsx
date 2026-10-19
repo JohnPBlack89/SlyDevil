@@ -8,8 +8,9 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Collapsible } from "@/components/ui/collapsible";
 import { WebBadge } from "@/components/web-badge";
-import { BottomTabInset, MaxContentWidth, Spacing } from "@/styles/theme";
+import { BottomTabInset, MaxContentWidth, Spacing } from "@/styles/coloring";
 import { useTheme } from "@/hooks/use-theme";
+import { useContentPlatformStyle } from "@/styles/platformStyles";
 
 export default function TabTwoScreen() {
 	const safeAreaInsets = useSafeAreaInsets();
@@ -19,18 +20,7 @@ export default function TabTwoScreen() {
 	};
 	const theme = useTheme();
 
-	const contentPlatformStyle = Platform.select({
-		android: {
-			paddingTop: insets.top,
-			paddingLeft: insets.left,
-			paddingRight: insets.right,
-			paddingBottom: insets.bottom,
-		},
-		web: {
-			paddingTop: Spacing.six,
-			paddingBottom: Spacing.four,
-		},
-	});
+	const contentPlatformStyle = useContentPlatformStyle();
 
 	return (
 		<ScrollView

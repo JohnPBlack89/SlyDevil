@@ -1,7 +1,7 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { useColorScheme } from "react-native";
 
-import { Colors } from "@/styles/theme";
+import { Colors } from "@/styles/coloring";
 
 export default function AppTabs() {
 	const scheme = useColorScheme();
@@ -13,7 +13,7 @@ export default function AppTabs() {
 			indicatorColor={colors.backgroundElement}
 			labelStyle={{ selected: { color: colors.text } }}
 		>
-			<NativeTabs.Trigger name="index">
+			<NativeTabs.Trigger name="home">
 				<NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
 				<NativeTabs.Trigger.Icon
 					src={require("@/assets/images/tabIcons/home.png")}

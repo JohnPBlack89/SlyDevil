@@ -1,6 +1,6 @@
 import { Platform, StyleSheet, Text, type TextProps } from "react-native";
 
-import { Fonts, ThemeColor } from "@/styles/theme";
+import { Fonts, ThemeColor } from "@/styles/coloring";
 import { useTheme } from "@/hooks/use-theme";
 
 export type ThemedTextProps = TextProps & {

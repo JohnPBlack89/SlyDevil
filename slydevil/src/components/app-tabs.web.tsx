@@ -13,7 +13,7 @@ import { ExternalLink } from "./external-link";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
 
-import { Colors, MaxContentWidth, Spacing } from "@/styles/theme";
+import { Colors, MaxContentWidth, Spacing } from "@/styles/coloring";
 
 export default function AppTabs() {
 	return (
@@ -63,7 +63,7 @@ export function CustomTabList(props: TabListProps) {
 		<View {...props} style={styles.tabListContainer}>
 			<ThemedView type="backgroundElement" style={styles.innerContainer}>
 				<ThemedText type="smallBold" style={styles.brandText}>
-					Expo Starter
+					Sly Devil
 				</ThemedText>
 
 				{props.children}
