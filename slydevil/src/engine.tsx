@@ -1,16 +1,22 @@
 import { Role } from "./types/role.js";
 import { Team } from "./types/team.js";
 import { Room } from "./types/room.js";
-import { Game } from "./types/game.js";
+import { Gametype } from "./types/gametype.js";
 import { v7 } from "uuid";
 import { Player } from "./types/player.js";
+import { live } from "./engine/states/live.js";
+import { Goal } from "./types/goal.js";
 
-function createRoom(game: Game): Room {
+export function createRoom(gametype: Gametype): Room {
+	var goals: Goal[] = [];
+	for (var role of gametype.possible_roles) goals.concat(role.goals);
+
 	var room = {
 		id: generateGUID(),
-		game: game,
+		gametype: gametype,
 		players: [],
 		state: [],
+		goals: goals,
 		addPlayers(player: Player) {
 			this.players.push(player);
 		},
@@ -19,12 +25,22 @@ function createRoom(game: Game): Room {
 }
 
 function generateGUID() {
-	// Need to add verification?
+	// Need to verify uniqueness
 	return v7();
 }
 
-export function insertCoin(game: Game) {
-	createRoom(game);
+export function startGame(room: Room) {
+	if (room.gametype.minPlayers <= room.players.length) room.state.push(live);
+}
+
+function endGame(room: Room) {}
+
+export function checkWinners(room: Room) {
+	for (var goal of room.goals) if (goal.met(room)) endGame(room);
+}
+
+export function insertCoin(gametype: Gametype) {
+	createRoom(gametype);
 }
 
 /*

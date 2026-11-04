@@ -1,4 +1,6 @@
-import { Game } from "../../types/game.js";
+import { Gametype } from "../../types/gametype.js";
+import { evilWins } from "../goals/evilWins.js";
+import { townWins } from "../goals/townWins.js";
 import { devil } from "../roles/devil.js";
 import { oracle } from "../roles/oracle.js";
 import { villager } from "../roles/villager.js";
@@ -12,4 +14,4 @@ export const standard = {
 	possible_roles: [devil, warden, oracle, villager],
 	minPlayers: 5,
 	maxPlayers: 12,
-} satisfies Game;
+} satisfies Gametype;

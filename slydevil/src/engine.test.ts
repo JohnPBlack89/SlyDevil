@@ -8,16 +8,6 @@ test("testing tests", () => {
 test("win conditions", () => {});
 
 /*
-import test from "node:test";
-import assert from "node:assert/strict";
-import {
-	createGame,
-	checkWinner,
-	resolveNight,
-	resolveVote,
-} from "./engine.js";
-import type { GameState, Role } from "./engine.js";
-
 // Assert fixture IDs exist before accessing them, including under strict indexing.
 function playerAt(game: GameState, id: number) {
   const player = game.players[id];

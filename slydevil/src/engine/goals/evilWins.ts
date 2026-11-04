@@ -1,4 +1,4 @@
-import { Goal } from "../../types/goals.js";
+import { Goal } from "../../types/goal.js";
 import { Player } from "../../types/player.js";
 import { Room } from "../../types/room.js";
 import { Team } from "../../types/team.js";

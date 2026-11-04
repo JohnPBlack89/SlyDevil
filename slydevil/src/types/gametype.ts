@@ -1,7 +1,7 @@
 import { Role } from "./role.js";
 import { Rule } from "./rule.js";
 
-export interface Game {
+export interface Gametype {
 	name: string;
 	description: string;
 	rules: Rule[];

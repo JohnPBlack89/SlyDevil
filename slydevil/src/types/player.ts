@@ -1,4 +1,4 @@
-import { Ability } from "./abilities.js";
+import { Ability } from "./ability.js";
 import { Account } from "./account.js";
 import { Role } from "./role.js";
 import { Status } from "./status.js";

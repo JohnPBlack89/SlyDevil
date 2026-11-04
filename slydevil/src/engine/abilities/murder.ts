@@ -1,4 +1,4 @@
-import { Ability } from "../../types/abilities.js";
+import { Ability } from "../../types/ability.js";
 import { Room } from "../../types/room.js";
 
 export const murder = {
