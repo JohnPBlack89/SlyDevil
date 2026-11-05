@@ -1,7 +1,7 @@
-import { Goal } from "../../types/goal.js";
-import { Player } from "../../types/player.js";
-import { Room } from "../../types/room.js";
-import { Team } from "../../types/team.js";
+import { Goal } from "../types/goal.js";
+import { Player } from "../classes/player.js";
+import { Room } from "../classes/room.js";
+import { Team } from "../types/team.js";
 import { evil } from "../teams/evil.js";
 
 export const evilWins = {

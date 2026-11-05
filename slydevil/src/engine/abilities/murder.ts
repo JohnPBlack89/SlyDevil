@@ -1,5 +1,5 @@
 import { Ability } from "../../types/ability.js";
-import { Room } from "../../types/room.js";
+import { Room } from "../../classes/room.js";
 
 export const murder = {
 	name: "Murder",

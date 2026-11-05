@@ -1,54 +1,16 @@
 import { Role } from "./types/role.js";
 import { Team } from "./types/team.js";
-import { Room } from "./types/room.js";
+import { Room } from "./classes/room.js";
 import { Gametype } from "./types/gametype.js";
 import { v7 } from "uuid";
-import { Player } from "./types/player.js";
-import { live } from "./engine/states/live.js";
+import { Player } from "./classes/player.js";
+import { live } from "./states/live.js";
 import { Goal } from "./types/goal.js";
-
-export function createRoom(gametype: Gametype): Room {
-	var goals: Goal[] = [];
-	for (var role of gametype.possible_roles) goals.concat(role.goals);
-
-	var room = {
-		id: generateGUID(),
-		gametype: gametype,
-		players: [],
-		state: [],
-		goals: goals,
-		addPlayers(player: Player) {
-			this.players.push(player);
-		},
-	} satisfies Room;
-	return room;
-}
-
-function generateGUID() {
-	// Need to verify uniqueness
-	return v7();
-}
-
-export function startGame(room: Room) {
-	if (room.gametype.minPlayers <= room.players.length) room.state.push(live);
-}
-
-function endGame(room: Room) {}
-
-export function checkWinners(room: Room) {
-	for (var goal of room.goals) if (goal.met(room)) endGame(room);
-}
-
-export function insertCoin(gametype: Gametype) {
-	createRoom(gametype);
-}
+import { dead } from "./statuses/dead.js";
 
 /*
 // Create shared game state. A supplied random function allows repeatable shuffles.
 export function createGame(names: string[], random = Math.random) {
-	if (names.length < 5 || names.length > 12) {
-		throw new Error("Your table needs 5–12 players.");
-	}
 
 	const uniqueNames = new Set(names.map((name) => name.toLowerCase()));
 	if (uniqueNames.size !== names.length) {

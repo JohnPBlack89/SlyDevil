@@ -1,4 +1,4 @@
-import { Role } from "../../types/role.js";
+import { Role } from "../types/role.js";
 import { townWins } from "../goals/townWins.js";
 import { village } from "../teams/village.js";
 

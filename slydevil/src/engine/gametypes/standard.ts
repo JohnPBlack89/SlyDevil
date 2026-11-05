@@ -1,4 +1,4 @@
-import { Gametype } from "../../types/gametype.js";
+import { Gametype } from "../types/gametype.js";
 import { evilWins } from "../goals/evilWins.js";
 import { townWins } from "../goals/townWins.js";
 import { devil } from "../roles/devil.js";

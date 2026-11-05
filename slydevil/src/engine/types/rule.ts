@@ -1,4 +1,4 @@
-import { RuleType } from "../engine/rules/_index.js";
+import { RuleType } from "../rules/_index.js";
 
 export interface Rule {
 	name: string;

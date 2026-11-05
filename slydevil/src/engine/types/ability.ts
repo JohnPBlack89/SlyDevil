@@ -1,4 +1,4 @@
-import { Room } from "./room.js";
+import { Room } from "../classes/room.js";
 
 export interface Ability {
 	name: string;

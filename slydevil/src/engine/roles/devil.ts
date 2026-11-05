@@ -1,4 +1,4 @@
-import { Role } from "../../types/role.js";
+import { Role } from "../types/role.js";
 import { murder } from "../abilities/murder.js";
 import { evilWins } from "../goals/evilWins.js";
 import { evil } from "../teams/evil.js";

@@ -1,4 +1,4 @@
-import { State } from "../../types/state.js";
+import { State } from "../types/state.js";
 
 export const live = {
 	name: "Live",

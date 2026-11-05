@@ -1,7 +1,7 @@
-import { Ability } from "./ability.js";
+import { Ability } from "../types/ability.js";
 import { Account } from "./account.js";
-import { Role } from "./role.js";
-import { Status } from "./status.js";
+import { Role } from "../types/role.js";
+import { Status } from "../types/status.js";
 
 export interface Player {
 	id: string;

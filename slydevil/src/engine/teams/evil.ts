@@ -1,4 +1,4 @@
-import { Team } from "../../types/team.js";
+import { Team } from "../types/team.js";
 
 export const evil = {
 	name: "Evil",
