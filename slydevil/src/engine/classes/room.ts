@@ -20,10 +20,19 @@ export class Room {
 		this._states = [];
 		this._goals = [];
 	}
-
 	private static generateId(): string {
 		console.log("Need to add validation to ensure no duplicates");
 		return v7().toString();
+	}
+	get id(): string {
+		return this._id;
+	}
+
+	get gametype(): Gametype {
+		return this._gametype;
+	}
+	set gametype(gametype: Gametype) {
+		this._gametype = gametype;
 	}
 
 	addPlayer(player: Player) {
@@ -48,6 +57,26 @@ export class Room {
 	}
 	get players(): readonly Player[] {
 		return this._players;
+	}
+
+	addState(state: State) {
+		if (
+			this._states.findIndex((existingstate) => existingstate == state) != null
+		)
+			throw Error("Can't add state again");
+
+		this._states.push(state);
+	}
+	removeState(state: State) {
+		if (
+			this._states.findIndex((existingstate) => existingstate == state) == null
+		)
+			throw Error("Can't find state");
+
+		this._states = this._states.filter((currentstate) => currentstate != state);
+	}
+	get states(): readonly State[] {
+		return this._states;
 	}
 
 	startGame() {
