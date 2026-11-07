@@ -1,11 +1,38 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { standard } from "./gametypes/standard";
+import { Room } from "./classes/room";
+import { Account } from "./classes/account";
+import { Player } from "./classes/player";
+import { oracle } from "./roles/oracle";
 
-test("testing tests", () => {
-	assert.equal(true, true);
+var account = new Account("Test");
+
+test("account tests", () => {
+	assert.ok(account);
+	assert.ok(account.id);
+	assert.equal(account.name, "Test");
 });
 
-test("win conditions", () => {});
+var player = new Player(account, oracle);
+
+test("player tests", () => {
+	assert.ok(player);
+	assert.ok(player.id);
+	assert.equal(player.account.name, "Test");
+});
+
+var room = new Room(standard);
+
+test("room test", () => {
+	assert.ok(room.id);
+	assert.equal(0, room.players.length, "Player already added");
+	assert.ok(true);
+});
+
+test("goals test", () => {
+	assert.ok(true);
+});
 
 /*
 // Assert fixture IDs exist before accessing them, including under strict indexing.
@@ -32,10 +59,6 @@ const fixture = (): GameState => ({
   protection: 3,
   winner: null,
 });
-
-test('evil wins condition', () => {
-  const 
-})
 
 test('setup balances roles and rejects invalid tables', () => {
   // Check every supported table size, regardless of shuffled role order.
