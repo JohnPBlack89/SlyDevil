@@ -1,5 +1,5 @@
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Spacing, BottomTabInset } from "@/styles/coloring";
+import { Spacing, BottomTabInset } from "@/styles/spacing";
 import { Platform, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 const platformStyles = StyleSheet.create({

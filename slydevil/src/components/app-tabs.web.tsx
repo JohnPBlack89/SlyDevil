@@ -12,8 +12,8 @@ import { Pressable, useColorScheme, View, StyleSheet } from "react-native";
 import { ExternalLink } from "./external-link";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
-
-import { Colors, MaxContentWidth, Spacing } from "@/styles/coloring";
+import { Colors } from "@/styles/coloring";
+import { MaxContentWidth, Spacing } from "@/styles/spacing";
 import { useTheme } from "@/hooks/use-theme";
 
 export default function AppTabs() {

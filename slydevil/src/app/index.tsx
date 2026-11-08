@@ -1,19 +1,20 @@
 import * as Device from "expo-device";
-import { Platform, StyleSheet, View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Platform, StyleSheet, View, Text, ScrollView } from "react-native";
+import {
+	SafeAreaView,
+	useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 import { AnimatedIcon } from "@/components/animated-icon";
 import { HintRow } from "@/components/hint-row";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { useTheme } from "@/hooks/use-theme";
 import { WebBadge } from "@/components/web-badge";
-import {
-	BottomTabInset,
-	Colors,
-	MaxContentWidth,
-	Spacing,
-} from "@/styles/coloring";
 import { ThemeColor } from "@/styles/coloring";
+import { BottomTabInset, Spacing } from "@/styles/spacing";
+import { ContainerStyles } from "@/styles/containers";
+import { useContentPlatformStyle } from "@/styles/platforms";
 
 function getDevMenuHint() {
 	if (Platform.OS === "web") {
@@ -35,16 +36,31 @@ function getDevMenuHint() {
 }
 
 export default function HomeScreen() {
+	const theme = useTheme();
+	const contentPlatformStyle = useContentPlatformStyle();
+	const safeAreaInsets = useSafeAreaInsets();
+	const insets = {
+		...safeAreaInsets,
+		bottom: safeAreaInsets.bottom + BottomTabInset + Spacing.three,
+	};
 	return (
-		<ThemedView
-			style={{
-				flex: 1,
-				paddingTop: Spacing.six,
-				paddingHorizontal: Spacing.four,
-			}}
+		<ScrollView
+			style={[
+				ContainerStyles.scrollView,
+				{ backgroundColor: theme.background },
+			]}
+			contentInset={insets}
+			contentContainerStyle={[
+				ContainerStyles.contentContainer,
+				contentPlatformStyle,
+			]}
 		>
-			<ThemedText>Sly Devil Index</ThemedText>
-		</ThemedView>
+			<ThemedView style={ContainerStyles.container}>
+				<ThemedView style={ContainerStyles.titleContainer}>
+					<ThemedText type="subtitle">Sly Devil Index</ThemedText>
+				</ThemedView>
+			</ThemedView>
+		</ScrollView>
 		/*
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
