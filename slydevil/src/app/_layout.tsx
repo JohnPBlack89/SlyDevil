@@ -1,23 +1,25 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-import { useTheme } from '@/hooks/use-theme';
+import { useScreenColors } from '@/components/screen-ui';
+import { RoomPreviewProvider } from '@/components/room-preview';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function TabLayout() {
+export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const colors = useTheme();
+  const colors = useScreenColors();
   const baseTheme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
   return (
-    <SafeAreaProvider style={{ flex: 1, backgroundColor: colors.background }}>
-      <ThemeProvider value={{ ...baseTheme, colors: { ...baseTheme.colors, background: colors.background, card: colors.backgroundElement, text: colors.text } }}>
+    <SafeAreaProvider style={{ flex: 1, backgroundColor: colors.page }}>
+      <ThemeProvider value={{ ...baseTheme, colors: { ...baseTheme.colors, background: colors.page, card: colors.surface, text: colors.text } }}>
         <AnimatedSplashOverlay />
-        <AppTabs />
+        <RoomPreviewProvider>
+          <Stack initialRouteName="index" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.page } }} />
+        </RoomPreviewProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

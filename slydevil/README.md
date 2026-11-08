@@ -1,21 +1,3 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
@@ -26,8 +8,6 @@ In the output, you'll find options to open the app in a
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
 ## Get a fresh project
-
-When you're ready, run:
 
 ```bash
 npm run reset-project
@@ -57,6 +37,9 @@ Join our community of developers creating universal apps.
 
 // install dev tools
 `npm ci`
+
+// install Expo dependenciesInstall dependencies
+`npx expo start`
 
 // Run app locally (port:3000)
 `npm start`

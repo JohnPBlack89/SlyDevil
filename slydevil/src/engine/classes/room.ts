@@ -59,6 +59,10 @@ export class Room {
 		return this._players;
 	}
 
+	assignRoles() {
+		throw new Error("Role Assigning Not Implemented Yet");
+	}
+
 	addState(state: State) {
 		if (
 			this._states.findIndex((existingstate) => existingstate == state) != null

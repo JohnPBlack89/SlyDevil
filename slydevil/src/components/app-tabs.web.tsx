@@ -8,8 +8,7 @@ import {
 } from "expo-router/ui";
 import { SymbolView } from "expo-symbols";
 import { Pressable, useColorScheme, View, StyleSheet } from "react-native";
-
-import { ExternalLink } from "./external-link";
+import { ContainerStyles } from "@/styles/containers";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
 import { Colors } from "@/styles/coloring";
@@ -28,6 +27,9 @@ export default function AppTabs() {
 					</TabTrigger>
 					<TabTrigger name="explore" href="/explore" asChild>
 						<TabButton>Explore</TabButton>
+					</TabTrigger>
+					<TabTrigger name="Login" href="/account-login" asChild>
+						<TabButton>Login</TabButton>
 					</TabTrigger>
 				</CustomTabList>
 			</TabList>
@@ -62,12 +64,14 @@ export function CustomTabList(props: TabListProps) {
 	const colors = Colors[scheme === "unspecified" ? "light" : scheme];
 
 	return (
-		<View {...props} style={styles.tabListContainer}>
-			<ThemedView type="backgroundElement" style={styles.innerContainer}>
+		<View {...props} style={ContainerStyles.tabListContainer}>
+			<ThemedView
+				type="backgroundElement"
+				style={ContainerStyles.innerContainer}
+			>
 				<ThemedText type="smallBold" style={styles.brandText}>
 					Sly Devil
 				</ThemedText>
-
 				{props.children}
 			</ThemedView>
 		</View>
@@ -75,24 +79,6 @@ export function CustomTabList(props: TabListProps) {
 }
 
 const styles = StyleSheet.create({
-	tabListContainer: {
-		position: "absolute",
-		width: "100%",
-		padding: Spacing.three,
-		justifyContent: "center",
-		alignItems: "center",
-		flexDirection: "row",
-	},
-	innerContainer: {
-		paddingVertical: Spacing.two,
-		paddingHorizontal: Spacing.five,
-		borderRadius: Spacing.five,
-		flexDirection: "row",
-		alignItems: "center",
-		flexGrow: 1,
-		gap: Spacing.two,
-		maxWidth: MaxContentWidth,
-	},
 	brandText: {
 		marginRight: "auto",
 	},

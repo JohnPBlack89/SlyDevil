@@ -1,8 +1,3 @@
-# Sly Devil development checklist
-
-Mark completed tasks with `[x]`. Add notes or links to commits beneath a task when
-they help explain what is finished or what remains.
-
 ## First multiplayer milestone
 
 - [ ] Two players on separate devices can join the same room and see the lobby update.
@@ -11,13 +6,6 @@ Get this working before implementing the full multiplayer game. It depends on
 the frontend lobby, backend room/session handling, and synchronized updates.
 
 ## 1. Organize the project
-
-- [x] Push the existing Git repository to GitHub.
-- [x] Set up TypeScript.
-- [x] Finish Engine drawing
-- [x] Define types for players, roles, rooms, and game phases.
-- [x] Separate shared types, game rules, frontend, and backend.
-- [x] Keep the existing engine tests passing throughout the migration.
 
 ## 2. Build the Expo frontend
 
