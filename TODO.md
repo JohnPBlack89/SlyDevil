@@ -9,10 +9,6 @@ the frontend lobby, backend room/session handling, and synchronized updates.
 
 ## 2. Build the Expo frontend
 
-- [ ] Create an Expo app targeting web, iOS, and Android.
-- [ ] Rebuild the current interface as reusable components.
-- [ ] Add room creation and joining screens.
-- [ ] Add a lobby screen showing connected players.
 - [ ] Add private role, night action, voting, and results screens.
 - [ ] Test layouts and accessibility in browsers and on phones.
 
